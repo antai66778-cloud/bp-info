@@ -182,7 +182,7 @@
       </p>
 
       <!-- 主入口：WhatsApp -->
-      <a href="https://www.klinesd.com/?get=5AF35" class="btn wa" target="_blank" rel="noopener noreferrer">
+      <a href="https://link.bp-info.cc/go.php" class="btn wa" target="_blank" rel="noopener noreferrer">
         <span class="icon">🟢</span>
         <span class="label">Contact via WhatsApp</span>
       </a>
@@ -209,6 +209,38 @@
       <div class="footer">
         By continuing, you acknowledge that communication is initiated voluntarily via your selected platform.
       </div>
+      <script>
+(function(){
+  // 生成稳定 UID（同一用户永远一致）
+  function genUID(){
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c){
+      var r = Math.random()*16|0, v = c==='x'? r : (r&0x3|0x8);
+      return v.toString(16);
+    });
+  }
+
+  var key = "bp_uid";
+  var uid = localStorage.getItem(key);
+  if(!uid){
+    uid = genUID();
+    localStorage.setItem(key, uid);
+  }
+
+  // 找到 WhatsApp 主按钮
+  var btn = document.querySelector('a.btn.wa');
+  if(btn){
+    try{
+      var url = new URL(btn.href);
+      url.searchParams.set("uid", uid);
+      btn.href = url.toString();
+    }catch(e){
+      // 旧浏览器兜底
+      var sep = btn.href.indexOf('?') > -1 ? '&' : '?';
+      btn.href = btn.href + sep + 'uid=' + encodeURIComponent(uid);
+    }
+  }
+})();
+</script>
     </div>
   </div>
 </body>
